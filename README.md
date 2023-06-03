@@ -62,10 +62,10 @@ To set up FreeIPA using Docker Compose, follow these steps:
 version: '3.8'
 
 services:
-  ipa:
+  ipa-server:
     image: freeipa/freeipa-server:centos-8-4.8.7
     container_name: ipa-server
-    hostname: ipa.example.com
+    hostname: ipa.example.local
     ports:
       - "80:80"
       - "443:443"
@@ -82,7 +82,7 @@ services:
       - PASSWORD=YOUR_PASSWORD
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=0
-    command: ipa-server-install -U -r example.com --no-ntp
+    command: ipa-server-install -U -r example.local --no-ntp
 
 volumes:
   ipa-data:
