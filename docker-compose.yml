@@ -16,7 +16,7 @@ services:
       - "464:464/udp"
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      -a-data:/data:Z
+      - ipa-data:/data:Z
     environment:
       - PASSWORD=YOUR_PASSWORD
     sysctls:
