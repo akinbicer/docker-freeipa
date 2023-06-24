@@ -59,14 +59,23 @@ To set up FreeIPA using Docker Compose, follow these steps:
 1. Create a `docker-compose.yml` file:
 
 ```
-version: '3.8'
+version: "2"
 
 services:
-  ipa-server:
-    image: freeipa/freeipa-server:centos-8-4.8.7
-    container_name: ipa-server
-    hostname: ipa.example.local
+  ipa:
+    image: freeipa/freeipa-server:rocky-9-4.10.1
+    container_name: ipa
+    hostname: ipa.yourdomain.local
+    restart: always
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      - "ipa-data:/data"
+    environment:
+      - PASSWORD=YOUR_PASSWORD
+      - IPA_SERVER_IP=172.16.30.2
+    command: ipa-server-install --domain='your_domain' --realm='YOUR_REAL_NAME' --no-ntp --setup-adtrust --setup-kra --enable-compat --netbios-name=TAZMANYAK --setup-dns --forwarder='1.1.1.1' --forward-policy=only --unattended
     ports:
+      - "53:53"
       - "80:80"
       - "443:443"
       - "389:389"
@@ -74,15 +83,24 @@ services:
       - "88:88"
       - "464:464"
       - "88:88/udp"
+      - "53:53/udp"
       - "464:464/udp"
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      -a-data:/data:Z
-    environment:
-      - PASSWORD=YOUR_PASSWORD
+    networks:
+      ipa_network:
+        ipv4_address: 172.16.30.2
     sysctls:
       - net.ipv6.conf.all.disable_ipv6=0
-    command: ipa-server-install -U -r example.local --no-ntp
+      
+networks:
+  ipa_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.30.0/24
+          gateway: 172.16.30.3
+          aux_addresses:
+            dns: 172.16.30.2
 
 volumes:
   ipa-data:
