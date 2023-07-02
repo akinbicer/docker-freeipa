@@ -1,6 +1,6 @@
 # Setting up FreeIPA with Docker and Docker Compose
 
-This guide will walk you through the process of setting up FreeIPA using Docker and Docker Compose. FreeIPA is an open-source identity management system that provides centralized authentication, authorization, and account information for Linux and Unix systems.
+This guide will walk you through the process of setting up FreeIPA using Docker Compose. FreeIPA is an open-source identity management system that provides centralized authentication, authorization, and account information for Linux and Unix systems.
 
 ## Prerequisites
 
