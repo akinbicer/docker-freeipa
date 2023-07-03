@@ -30,7 +30,7 @@ services:
     environment:
       - PASSWORD=YOUR_PASSWORD
       - IPA_SERVER_IP=172.16.30.2
-    command: ipa-server-install --domain='your_domain' --realm='YOUR_REAL_NAME' --no-ntp --setup-adtrust --setup-kra --enable-compat --netbios-name=TAZMANYAK --setup-dns --forwarder='1.1.1.1' --forward-policy=only --unattended
+    command: ipa-server-install --domain='your_domain' --realm='YOUR_REAL_NAME' --no-ntp --setup-adtrust --setup-kra --enable-compat --netbios-name=YOUR_BIOS_NAME --setup-dns --forwarder='1.1.1.1' --forward-policy=only --unattended
     ports:
       - "53:53"
       - "80:80"
